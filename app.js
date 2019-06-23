@@ -1,7 +1,9 @@
 var createError = require('http-errors');
+var key = 'appit';
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
+const jwt = require('jsonwebtoken');
 var logger = require('morgan');
 const mongoose = require('mongoose');
 var indexRouter = require('./routes/index');
@@ -18,6 +20,35 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+var protectRoute = function(req, res, next) {
+    // if user exists the token was sent with the request
+    if (req.user) {
+        //if user exists then go to next middleware
+        next();
+    }
+    // token was not sent with request send error to user
+    else {
+        res.status(500).json({ error: 'login is required' });
+    }
+}
+
+app.use(function (req, res, next) {
+    try {
+        const token = req.headers.authorization.split(" ")[1]
+        jwt.verify(token, key , function (err, payload) {
+            console.log(payload)
+            if (payload) {
+                req.user = payload.userID;
+                next()
+            } else {
+                next()
+            }
+        })
+    } catch (e) {
+        next()
+    }
+})
 
 mongoose.connect('mongodb://localhost:27017/appitweather', (err) => {
     if (err) {

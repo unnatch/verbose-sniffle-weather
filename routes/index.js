@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const request = require('request');
 var weatherController = require('./../controllers/index.js');
-var weatherModel = require('./../models/index.js');
+// var weatherModel = require('./../models/index.js');
 
 /* GET home page. */
 
