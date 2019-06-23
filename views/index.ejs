@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %>. This is Hong Kong's current weather.</p>
+    <h1><%= body.condition %></h1>
+    <p><b>Temperature: </b> <%= body.temp %>&#176;C</p>
+    <p><b>Maximum Temperature: </b> <%= body.temp_max %>&#176;C</p>
+    <p><b>Minimum Temperature: </b> <%= body.temp_min %>&#176;C</p>
+    <p><b>Humidity: </b> <%= body.humidity %>%</p>
+    <p><b>Cloudiness: </b> <%= body.cloudiness %>%</p>
+</body>
+
+</html>
